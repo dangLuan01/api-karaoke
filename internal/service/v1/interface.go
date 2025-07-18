@@ -13,5 +13,5 @@ type UserService interface {
 }
 
 type SongService interface {
-	GetAll(data string) (any, error)
+	GetAll(data, secret string) (any, error)
 }

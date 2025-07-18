@@ -18,11 +18,8 @@ func NewSongService(repo repository.SongRepository) SongService {
 	}	
 }
 
-func (ss *songService) GetAll(data string) (any, error) {
+func (ss *songService) GetAll(data, secret string) (any, error) {
 	
-	
-    secret := "asd#q@239874#@12"
-
     o := openssl.New()
 
     dec, err := o.DecryptBytes(secret, []byte(data))
