@@ -14,8 +14,8 @@ type SongModule struct {
 	routes routes.Route
 }
 
-func NewSongModule(DB *goqu.Database) *SongModule {
-	songRepo := repository.NewSqlSongRepository(DB)
+func NewSongModule(DB *goqu.Database, image repository.ImageRepository) *SongModule {
+	songRepo := repository.NewSqlSongRepository(DB, image)
 	songService := v1service.NewSongService(songRepo)
 	songHandler := v1handler.NewSongHandler(songService)
 	songRoutes := v1routes.NewSongRoutes(songHandler)

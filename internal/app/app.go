@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/dangLuan01/karaoke/internal/config"
+	"github.com/dangLuan01/karaoke/internal/repository"
 	"github.com/dangLuan01/karaoke/internal/repository/redis"
 	"github.com/dangLuan01/karaoke/internal/routes"
 	"github.com/dangLuan01/karaoke/internal/validation"
@@ -27,11 +28,12 @@ func NewApplication(cfg *config.Config, DB *goqu.Database) *Application {
 		log.Fatalf("Validation init failed %v:", err)
 	}
 	redisRepo := redis.NewRedisRepository(cfg.Redis)
+	image := repository.NewSqlImageRepository(DB)
 	r := gin.Default()
 
 	modules := []Module{
 		NewUserModule(DB, redisRepo),
-		NewSongModule(DB),
+		NewSongModule(DB, image),
 	}
 
 	routes.RegisterRoute(r, getModuleRoutes(modules)...)

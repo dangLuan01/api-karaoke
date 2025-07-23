@@ -1,6 +1,7 @@
 package v1service
 
 import (
+	v1dto "github.com/dangLuan01/karaoke/internal/dto/v1"
 	"github.com/dangLuan01/karaoke/internal/models"
 )
 
@@ -13,5 +14,7 @@ type UserService interface {
 }
 
 type SongService interface {
-	GetAll(data, secret string) (any, error)
+	//GetAll(data, secret string) (any, error)
+	SearchSong(search string) ([]models.Song, error)
+	GetDetail(uuid string) (*v1dto.SongDTO, error)
 }
