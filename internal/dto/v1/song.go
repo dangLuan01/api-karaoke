@@ -30,7 +30,7 @@ type SongDTO struct {
 	Uuid 		string `json:"uuid"`
 	Name	  	string `json:"name"`
 	Name_sort 	string `json:"name_sort,omitempty"`
-	Singer   	string `json:"Singer,omitempty"`
+	Singer   	string `json:"singer,omitempty"`
 	Author   	string `json:"author,omitempty"`
 	Tone	 	string `json:"tone,omitempty"`
 	Tune	 	string `json:"tune,omitempty"`
