@@ -147,3 +147,25 @@ func (sr *SqlSongRepository) FindByName(name string) ([]models.Song, error) {
 	
 	return songs, nil
 }
+
+func (sr *SqlSongRepository) FindAll() ([]models.Song, error) {
+	songs := sr.songs[:0]
+	ds := sr.db.From(goqu.T("songs")).Select(
+		goqu.C("uuid"),
+		goqu.C("name"),
+		goqu.C("thumbnail"),
+		goqu.C("lyrics"),
+		goqu.C("singer"),
+		goqu.C("author"),
+		goqu.C("tone"),
+		goqu.C("tune"),
+		goqu.C("type"),
+	).
+	Order(goqu.I("created_at").Desc()).
+	Limit(9)
+	if err := ds.ScanStructs(&songs); err != nil {
+		return nil, err
+	}
+
+	return songs, nil
+}

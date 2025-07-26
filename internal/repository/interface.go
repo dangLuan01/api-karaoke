@@ -15,6 +15,7 @@ type UserRepository interface {
 }
 
 type SongRepository interface {
+	FindAll() ([]models.Song, error)
 	Store(songs []models.Song) error
 	FindId(id string) (bool, error)
 	FindByName(name string) ([]models.Song, error)

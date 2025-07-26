@@ -22,29 +22,18 @@ func NewSongService(repo repository.SongRepository) SongService {
 	}	
 }
 
-// func (ss *songService) GetAll(data, secret string) (any, error) {
-	
-//     o := openssl.New()
+func (ss *songService) GetAll() ([]models.Song, error) {
+	songs, err := ss.repo.FindAll()
+	if err != nil {
+		return nil, utils.WrapError(
+			string(utils.ErrCodeBadRequest),
+			"An error occured fetch songs",
+			err,
+		)
+	}
 
-//     dec, err := o.DecryptBytes(secret, []byte(data))
-//     if err != nil {
-// 		return nil, utils.WrapError(
-// 			string(utils.ErrCodeBadRequest),
-// 			"An error occurred DecryptBytes",
-// 			err,
-// 		)
-//     }
-	
-// 	if err := json.Unmarshal(dec, &Song); err != nil {
-// 		return nil, utils.WrapError(
-// 			string(utils.ErrCodeBadRequest),
-// 			"An error occurred Unmarshal",
-// 			err,
-// 		)
-// 	}
-    
-// 	return fmt.Sprintf("Decrypted text: %s\n", string(dec)), nil
-// }
+	return songs, nil
+}
 
 func (ss *songService) SearchSong(name string) ([]models.Song, error) {
 

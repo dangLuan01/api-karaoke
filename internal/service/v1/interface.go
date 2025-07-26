@@ -14,7 +14,7 @@ type UserService interface {
 }
 
 type SongService interface {
-	//GetAll(data, secret string) (any, error)
+	GetAll() ([]models.Song, error)
 	SearchSong(search string) ([]models.Song, error)
 	GetDetail(uuid string) (*v1dto.SongDTO, error)
 }

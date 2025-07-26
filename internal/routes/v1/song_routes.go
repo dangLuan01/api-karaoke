@@ -18,7 +18,7 @@ func NewSongRoutes(handler *v1handler.SongHandler) *SongRoutes {
 func (rs *SongRoutes)Register(r *gin.RouterGroup)  {
 	song := r.Group("/song")
 	{
-		// song.GET("", rs.handler.GetAll)
+		song.GET("", rs.handler.GetAll)
 		song.GET("/search", rs.handler.SearchSong)
 		song.GET("/:uuid", rs.handler.GetDetail)
 	}
