@@ -25,3 +25,9 @@ type SongRepository interface {
 type ImageRepository interface {
 	Store(images []models.Image) error
 }
+
+type SuggestionRepository interface {
+	Find(search string) (*models.SongSuggestion, error)
+	Store(suggestion models.SongSuggestion) error
+	Update(search string, suggestion models.SongSuggestion) error
+ }

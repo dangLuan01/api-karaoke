@@ -37,12 +37,16 @@ type SongDTO struct {
 	Thumbail 	string `json:"thumbnail,omitempty"`
 	Lyrics   	string `json:"lyrics,omitempty"`
 	Type	  	string `json:"type,omitempty"`
-	Domain_img 		string `json:"domain_img,omitempty"`
+	Domain_img 	string `json:"domain_img,omitempty"`
 	Images 		[]ImageDTO `json:"images,omitempty"`
 }
 
 type ImageDTO struct {
 	Image string `json:"image"`
+}
+
+type CreateSuggestionInput struct {
+	Search string `json:"search" binding:"required"`
 }
 
 func MapSongDTO (songs []models.Song) []SongDTO {

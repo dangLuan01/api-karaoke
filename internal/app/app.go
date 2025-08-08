@@ -34,6 +34,8 @@ func NewApplication(cfg *config.Config, DB *goqu.Database) *Application {
 	modules := []Module{
 		NewUserModule(DB, redisRepo),
 		NewSongModule(DB, image),
+		NewSuggestionModule(DB),
+		
 	}
 
 	routes.RegisterRoute(r, getModuleRoutes(modules)...)

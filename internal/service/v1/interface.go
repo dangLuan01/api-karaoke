@@ -18,3 +18,7 @@ type SongService interface {
 	SearchSong(search string) ([]models.Song, error)
 	GetDetail(uuid string) (*v1dto.SongDTO, error)
 }
+
+type SuggestionService interface {
+	SaveSuggestion(search string) error
+}
