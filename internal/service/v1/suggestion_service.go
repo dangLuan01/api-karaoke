@@ -50,3 +50,18 @@ func (ss *suggestionService) SaveSuggestion(search string) error {
 
 	return nil
 }
+
+func (ss *suggestionService) GetAll() ([]models.SongSuggestion, error) {
+	
+	ds, err := ss.repo.GetAll()
+
+	if err != nil {
+		return nil, utils.WrapError(
+			string(utils.ErrCodeBadRequest),
+			"An error occured get suggestion",
+			err,
+		)
+	}
+
+	return ds, nil
+}

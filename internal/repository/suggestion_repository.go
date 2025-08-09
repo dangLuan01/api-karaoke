@@ -9,13 +9,13 @@ import (
 )
 
 type SqlSuggestionRepository struct {
-	suggestion models.SongSuggestion
+	suggestion []models.SongSuggestion
 	db *goqu.Database
 }
 
 func NewSqlSuggestionRepository(DB *goqu.Database) SuggestionRepository {
 	return &SqlSuggestionRepository {
-		suggestion: models.SongSuggestion{},
+		suggestion: make([]models.SongSuggestion, 0),
 		db: DB,
 	}
 }
@@ -56,7 +56,7 @@ func (sr *SqlSuggestionRepository) Update(search string, suggestion models.SongS
 		).
 		Set(goqu.Record{
 			"count": suggestion.Count + 1,
-			"updated_at": time.Now().Format("2000-01-01 01:01:01"),
+			"updated_at": time.Now(),
 		}).Executor()
 	
 	if _, err := updateSuggestion.Exec(); err != nil {
@@ -66,3 +66,16 @@ func (sr *SqlSuggestionRepository) Update(search string, suggestion models.SongS
 	return nil
 }
 
+func (sr *SqlSuggestionRepository) GetAll() ([]models.SongSuggestion, error) {
+	sug := sr.suggestion
+	ds := sr.db.From(goqu.T("song_suggestions")).
+		Order(
+			goqu.C("updated_at").Desc(),
+			goqu.C("count").Desc(),
+		).Limit(4)
+	if err := ds.ScanStructs(&sug); err != nil {
+		return nil, fmt.Errorf("error fetch suggesion:%v", err)
+	}
+
+	return sug, nil
+}

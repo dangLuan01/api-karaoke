@@ -19,7 +19,7 @@ func (rs *SuggestionRoutes) Register(r *gin.RouterGroup) {
 	song := r.Group("/suggestion")
 	{
 		song.POST("", rs.handler.SaveSuggestionBySearch)
+		song.GET("/list", rs.handler.GetAllSuggestion)
 	}
-
 
 }

@@ -35,3 +35,15 @@ func (sh *SuggestionHandler) SaveSuggestionBySearch(ctx *gin.Context)  {
 
 	utils.ResponseSatus(ctx, http.StatusNoContent)
 }
+
+func (sh *SuggestionHandler)GetAllSuggestion(ctx *gin.Context) {
+	
+	sug, err := sh.service.GetAll()
+	if err != nil {
+		utils.ResponseError(ctx, err)
+		return
+	}
+
+	utils.ResponseSuccess(ctx, http.StatusOK, v1dto.MapSuggestionDTO(sug))
+	
+}

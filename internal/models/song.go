@@ -26,6 +26,6 @@ type SongSuggestion struct {
 	//Id 			int 	`db:"id"`
 	Search 		string 		`db:"search"`
 	Count 		int 		`db:"count" goqu:"omitnil"`
-	Created_at 	time.Time 	`db:"created_at" goqu:"omitnil"`
-	Updated_at 	time.Time 	`db:"updated_at" goqu:"omitnil"`
+	Created_at 	*time.Time 	`db:"created_at" goqu:"omitnil"`
+	Updated_at 	*time.Time 	`db:"updated_at" goqu:"omitnil"`
 }

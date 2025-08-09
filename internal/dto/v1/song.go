@@ -2,6 +2,7 @@ package v1dto
 
 import (
 	"strings"
+	"time"
 
 	"github.com/dangLuan01/karaoke/internal/models"
 	"github.com/dangLuan01/karaoke/internal/utils"
@@ -47,6 +48,11 @@ type ImageDTO struct {
 
 type CreateSuggestionInput struct {
 	Search string `json:"search" binding:"required"`
+}
+type SuggestionDTO struct {
+	Search 		string 		`json:"search"`
+	Count 		int 		`json:"count"`
+	Updated_at 	time.Time 	`json:"updated_at"`
 }
 
 func MapSongDTO (songs []models.Song) []SongDTO {
@@ -114,4 +120,19 @@ func MapRawImageToModel(id, uuid string, images RawImage) []models.Image {
 func MapSongDetailDTO(song *SongDTO) *SongDTO {
 	song.Domain_img = utils.GetEnv("DOMAIN_IMG", "")
 	return song
+}
+
+func MapSuggestionDTO(suggestion []models.SongSuggestion) []SuggestionDTO {
+	sugDto := make([]SuggestionDTO, 0, len(suggestion))
+
+	for _, suggestion := range suggestion {
+		sug := SuggestionDTO {
+			Search: suggestion.Search,
+			Count: suggestion.Count,
+			Updated_at: *suggestion.Updated_at,
+		}
+		sugDto = append(sugDto, sug)
+	}
+
+	return sugDto
 }

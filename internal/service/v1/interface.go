@@ -21,4 +21,5 @@ type SongService interface {
 
 type SuggestionService interface {
 	SaveSuggestion(search string) error
+	GetAll()([]models.SongSuggestion, error)
 }
